@@ -32,7 +32,7 @@ int login()
     fp = fopen(buffer, "r");
     if(fp == NULL)
     {
-        printf("\nCPF não cadastrado!\n");
+        printf("\nCPF não cadastrado! \n");
         system("pause");
         system("cls");
         menuCadastro();
