@@ -1,5 +1,5 @@
 #include "headers.h"
-int menuCadastro()
+void menuCadastro()
 {
     char nome[100],
          sobrenome[100],
@@ -7,10 +7,9 @@ int menuCadastro()
          email[256],
          senha[100],
          cpf[100],
-         idade[100],
          SN,
-         sair;
-    int dataNascimento;
+         escolha,
+         dataNascimento[100];
 
     do
     {
@@ -21,52 +20,65 @@ int menuCadastro()
     printf("\tSobrenome: ");
     fgets(sobrenome, 100, stdin);
 
-    printf("\tGênero (M para Masculino, F para Feminino): ");
+    printf("\tGênero (M para Masculino / F para Feminino): ");
     fgets(genero, sizeof genero, stdin);
     fflush(stdin);
-
+        if((strcasecmp(genero, "M") != 0) || (strcasecmp(genero, "F") != 0))  
+        {
+            printf("Gênero inválido! Digite novamente\n");
+        }
+    while(strlen(cpf) != 12 == true)
+    {
     printf("\tCPF: ");
     fgets(cpf, sizeof cpf, stdin);
     fflush(stdin);
-
+        if(strlen(cpf) != 12)
+        {
+            printf("CPF inválido! Digite novamente.\n");
+        }
+    }
+    while(strlen(dataNascimento) != 9 == true)
+    { 
     printf("\tData de nascimento (Não utilize espaços e barras -> ddmmaaaa): ");
-    scanf("%d", &dataNascimento);
+    fgets(dataNascimento, sizeof dataNascimento, stdin);
     fflush(stdin);
-
-    printf("\tIdade: ");
-    fgets(idade, 4, stdin);
-    fflush(stdin);
-
+        if(strlen(dataNascimento) != 9)
+        {
+            printf("Data de nascimento inválida! Digite no formato dd mm aaaa.\n");
+        }
+    }
     printf("\tEmail: ");
     fgets(email, 256, stdin);
     fflush(stdin);
 
-    printf("\tSenha (até 14 caracteres): ");
+    printf("\tSenha (max 14 caracteres): ");
     fgets(senha, 15, stdin);
     fflush(stdin);
-
+    while(strlen(senha) > 15 == true)
+    {
+        if(strlen(senha) > 15)
+        {
+            printf("\nSenha inválida! Digite novamente.\n");
+        }
+    }
     printf("Suas informações estão corretas? (S/N) ");
-    scanf(" %c", &SN);
-    fflush(stdin);
+    SN = getchar();
     if(SN == 'S' || SN == 's')
     {
-        salvarCadastro(nome, sobrenome, genero, email, senha, cpf, idade, dataNascimento);
+        salvarCadastro(nome, sobrenome, genero, email, senha, cpf, dataNascimento);
         printf("\nCadastro realizado com sucesso!");
     }
-    printf("\nPressione F para realizar um novo cadastro ou pressione qualquer tecla para sair ");
-    scanf(" %c", &sair);
-    fflush(stdin);
-        if(sair == 'F' || sair == 'f')
+    printf("\nPressione F para realizar um novo cadastro ou pressione M para ir para o menu ");
+    escolha = getchar();
+        if(escolha == 'F' || escolha == 'f')
         {
             system("cls");
+            menuCadastro();
         }
         else
         {
             system("cls");
-            printf("\nFim do programa!\n");
             menuEscolha();
         }
-    }while(sair == 'F' || sair == 'f');
-
-    return 0;
+    }while(escolha == 'F' || escolha == 'f');
 }

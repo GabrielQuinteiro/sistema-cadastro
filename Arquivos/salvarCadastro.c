@@ -1,6 +1,6 @@
 #include "headers.h"
 
-int salvarCadastro(char nome[], char sobrenome[], char genero[], char email[], char senha[], char cpf[], char idade[], int dataNascimento)
+int salvarCadastro(char nome[], char sobrenome[], char genero[], char email[], char senha[], char cpf[], char dataNascimento[])
 {
     char usuarios[10],
          dt[10],
@@ -16,19 +16,17 @@ int salvarCadastro(char nome[], char sobrenome[], char genero[], char email[], c
     saidaCad = fopen(usuarios, "w");
     if(saidaCad == NULL)
     {
-        perror("\tErro ao abrir o arquivo de saida");
+        perror("\tErro ao abrir o arquivo de saida!\n");
         exit(1);
     }
     else
     {
-        sprintf(dt, "%d", dataNascimento);
         strcpy(line, nome);
         strcat(line, sobrenome);
         strcat(line, genero);
         strcat(line, cpf);
-        strcat(line, dt);
+        strcat(line, dataNascimento);
         strcat(line, "\n");
-        strcat(line, idade);
         strcat(line, email);
         strcat(line, senha);
         fputs(line, saidaCad);
